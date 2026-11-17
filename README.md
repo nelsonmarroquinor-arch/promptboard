@@ -51,7 +51,7 @@ El código está separado en tres capas para que cada archivo tenga una sola res
 **Opción 1 (la más fácil):**
 1. Descarga o clona el repositorio:
    ```bash
-   git clone https://github.com/<tu-usuario>/promptboard.git
+   git clone https://github.com/nelsonmarroquinor-arch/promptboard.git
    ```
 2. Abre `index.html` con doble clic en Chrome, Edge o Firefox. No necesita instalar nada.
 
@@ -59,7 +59,9 @@ El código está separado en tres capas para que cada archivo tenga una sola res
 - En Visual Studio Code, instala la extensión **Live Server**, haz clic derecho sobre `index.html` y elige *Open with Live Server*.
 - O, si tienes Python: `python -m http.server 8000` y abre `http://localhost:8000`.
 
-**Versión en línea:** <!-- Pega aquí el enlace de GitHub Pages: https://<tu-usuario>.github.io/promptboard/ -->
+**Versión en línea:** https://nelsonmarroquinor-arch.github.io/promptboard/
+
+**Video explicativo:** <!-- pega aquí el enlace del video -->
 
 > Los datos se guardan en el navegador (localStorage). Si se borran los datos del navegador o se abre en otro equipo, la bitácora empieza vacía.
 
