@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromptBoard · Bitácora de prompts para equipos ágiles</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- ===== Encabezado ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">&lt;/&gt;</span>
+      <div>
+        <h1>PromptBoard</h1>
+        <p>Bitácora de prompts de IA por evento de Scrum · Ingeniería de Software FET</p>
+      </div>
+    </div>
+    <div class="principle">La IA propone, el equipo decide</div>
+  </header>
+
+  <main class="layout">
+    <!-- ===== CREATE / UPDATE: formulario ===== -->
+    <section class="card form-card">
+      <h2 id="form-title">Registrar prompt</h2>
+      <form id="prompt-form" novalidate>
+        <!-- Si este campo tiene un id, el formulario está en modo edición -->
+        <input type="hidden" id="prompt-id">
+
+        <label for="title">Nombre corto <span class="req">*</span></label>
+        <input id="title" type="text" maxlength="80" placeholder="Ej.: Validación del formulario de registro">
+
+        <label for="text">Texto del prompt <span class="req">*</span></label>
+        <textarea id="text" rows="4" placeholder="Escribe aquí el prompt exacto que enviaste a la IA"></textarea>
+
+        <div class="row">
+          <div>
+            <label for="tool">Herramienta</label>
+            <select id="tool">
+              <option>ChatGPT</option><option>Claude</option><option>GitHub Copilot</option>
+              <option>Gemini</option><option>Cursor</option><option>Otra</option>
+            </select>
+          </div>
+          <div>
+            <label for="event">Evento de Scrum</label>
+            <select id="event">
+              <option>Refinamiento</option><option>Sprint Planning</option><option selected>Desarrollo</option>
+              <option>Daily Scrum</option><option>Sprint Review</option><option>Retrospective</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="purpose">Propósito</label>
+            <select id="purpose">
+              <option>Generar código</option><option>Refactorizar</option><option>Depurar errores</option>
+              <option>Pruebas</option><option>Documentar</option><option>Historias de usuario</option>
+            </select>
+          </div>
+          <div>
+            <label for="result">Resultado</label>
+            <select id="result">
+              <option>Útil</option><option>Parcial</option><option>No útil</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Control humano: la persona responde por lo que acepta de la IA -->
+        <fieldset class="ai-box">
+          <legend>Control humano</legend>
+          <label class="check"><input type="checkbox" id="verified"> Revisé y probé la respuesta antes de usarla</label>
+          <label for="changes">¿Qué ajusté de la respuesta?</label>
+          <textarea id="changes" rows="2" placeholder="Ej.: Cambié los nombres de variables y agregué validación de campos vacíos"></textarea>
+        </fieldset>
+
+        <p id="form-error" class="form-error" role="alert"></p>
+
+        <div class="actions">
+          <button type="submit" id="submit-btn" class="btn primary">Guardar prompt</button>
+          <button type="button" id="cancel-btn" class="btn ghost hidden">Cancelar edición</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== READ: listado ===== -->
+    <section class="card list-card">
+      <div class="list-head">
+        <h2>Bitácora</h2>
+        <div class="stats" id="stats"></div>
+      </div>
+
+      <div class="filters">
+        <input id="search" type="search" placeholder="Buscar en nombre, prompt o ajustes…">
+        <select id="filter-tool">
+          <option value="">Todas las herramientas</option>
+          <option>ChatGPT</option><option>Claude</option><option>GitHub Copilot</option>
+          <option>Gemini</option><option>Cursor</option><option>Otra</option>
+        </select>
+        <select id="filter-event">
+          <option value="">Todos los eventos</option>
+          <option>Refinamiento</option><option>Sprint Planning</option><option>Desarrollo</option>
+          <option>Daily Scrum</option><option>Sprint Review</option><option>Retrospective</option>
+        </select>
+      </div>
+
+      <ul id="prompt-list" class="prompt-list"></ul>
+      <div id="empty" class="empty">
+        <p>Todavía no hay prompts registrados.</p>
+        <button id="seed-btn" class="btn ghost">Cargar ejemplos</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== DELETE: ventana de confirmación ===== -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <h3 id="modal-title">¿Eliminar este prompt?</h3>
+      <p id="modal-text"></p>
+      <div class="actions">
+        <button id="modal-cancel" class="btn ghost">Cancelar</button>
+        <button id="modal-confirm" class="btn danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <footer class="foot">Seminario: Gestión de Software Ágil asistido por IA · Nelson Steven Marroquin Ortiz</footer>
+
+  <!-- Scripts normales (sin módulos) para que la app abra con doble clic, sin servidor -->
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
